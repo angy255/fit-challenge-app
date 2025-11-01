@@ -1,0 +1,61 @@
+body {
+  padding-top: 80px;
+  font-family: "Jersey 10", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+img {
+  height: 200px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+body {
+  background-image: url("/img/blue-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container, .btn {
+  color: azure;
+  text-align: center;
+}
+
+h1{
+  font-size: 70px;
+}
+
+.btn{
+font-size: 40px;
+color: rgb(0, 186, 247);
+text-decoration: none;
+}
+
+.form-group{
+  font-size: 30px;
+}
+
+.form-control{
+  font-size: 20px;
+  border-radius: 10px;
+  color: rgb(0, 60, 255);
+}
+
+.btn-lg{
+  cursor: pointer;
+  color: red;
+  font-size: 25px;
+  margin-top: 15px;
+  border-radius: 10px;
+  font-family: "Jersey 10", sans-serif;
+
+}
+
+p a{
+  color: red;
+  text-decoration: none;
+  font-size: 20px;
+
+}
