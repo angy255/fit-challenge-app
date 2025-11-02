@@ -23,18 +23,28 @@
   <body>
     <div class="container">
       <!-- <div class="jumbotron text-center"> -->
-        <h1>Accomplish Your Goals</h1>
-        <img src="img/fitness-meme.jpeg" alt="abs-meme" />
-<!-- have the goal of this site be something cool or interesting. try to add some hrefs with links in target_blank and/or add additional pages than that of the login and signup and messages, or can do this for maybe the second project -->
-        <!-- <p>Login or Sign Up:</p> -->
+      <h1>Accomplish Your Goals</h1>
+      <!-- create epic music feature -->
+      <div class="music-player">
+        <button id="playBtn">Let's do this!!</button>
+      </div>
+      <script>
+        const audio = new Audio("/img/rocky.mp3");
+        document.getElementById("playBtn").addEventListener("click", () => {
+          audio.play();
+        });
+      </script>
+      <img src="img/fitness-meme.jpeg" alt="abs-meme" />
 
-        <a href="/login" class="btn"
-          ><span class="fa fa-person-running"></span> Login</a
-        >
-        <div></div>
-        <a href="/signup" class="btn"
-          ><span class="fa fa-person-walking"></span> Sign Up</a
-        >
+      <!-- <p>Login or Sign Up:</p> -->
+
+      <a href="/login" class="btn"
+        ><span class="fa fa-person-running"></span> Login</a
+      >
+      <div></div>
+      <a href="/signup" class="btn"
+        ><span class="fa fa-person-walking"></span> Sign Up</a
+      >
       <!-- </div> -->
     </div>
   </body>

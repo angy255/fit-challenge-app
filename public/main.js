@@ -1,6 +1,6 @@
-let thumbUp = document.getElementsByClassName("fa-thumbs-up");
-let thumbDown = document.getElementsByClassName("fa-thumbs-down");
-let trash = document.getElementsByClassName("fa-trash");
+let thumbUp = document.getElementsByClassName("fa-heart-circle-plus");
+let thumbDown = document.getElementsByClassName("fa-heart-circle-minus");
+let trash = document.getElementsByClassName("fa-heart-circle-xmark");
 
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
@@ -67,4 +67,18 @@ Array.from(trash).forEach(function(element) {
           window.location.reload()
         })
       });
+});
+
+// ================================
+// LIVE TIME UPDATE USING MOMENT.JS
+// ================================
+// asked for help from chatgpt for this part / making sure I'm doing this correctly
+document.addEventListener('DOMContentLoaded', () => {
+  const h3 = document.getElementById('current-time');
+  if (!h3) return;
+
+  setInterval(() => {
+    const now = moment(); // get current time
+    h3.textContent = 'Current time: ' + now.format('MMMM Do YYYY, h:mm:ss a');
+  }, 1000);
 });
