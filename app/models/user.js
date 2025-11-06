@@ -26,7 +26,13 @@ let userSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
-    }
+    },
+    // add daily tasks
+    tasks            : [{
+        task         : String,
+        timeSlot     : String, // "06:00", "07:00", etc. or null for unscheduled
+        date         : String  // "YYYY-MM-DD" format
+    }]
 
 });
 

@@ -2,8 +2,7 @@
 <html>
 <head>
     <title>Profile</title>
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> -->
-     <link rel="icon" type="image/x-icon" href="/img/fit.svg" />
+    <link rel="icon" type="image/x-icon" href="/img/fit.svg" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,79 +17,57 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-dumbbell"></span> Choose This Month's Challenge</h1>
-        <!-- <i class="fa-solid fa-dumbbell"></i> -->
-        <!-- <a href="/logout" class="btn btn-sm">Logout</a> -->
+        <h1><span class="fa fa-dumbbell"></span> Today's Schedule</h1>
     </div>
 
-    
+    <div class="main-layout">
+  <div class="schedule-section">
+    <h3 id="current-time">Current time</h3>
 
-    <!-- <div class="row"> -->
+    <% if (user.local.email) { %>
+      <form id="task-form">
+        <!-- <span class="instructions">Add a task for today</span> -->
+        <input type="text" id="task-input" placeholder="e.g., push day workout" name="task" class="challenge">
+        <button type="submit" class="challengeButton">Add task</button>
+      </form>
+    <% } %>
 
-        <!-- LOCAL INFORMATION -->
-        <!-- <div class="col-sm-6">
-            <div class="well"> -->
-                <!-- <h3><span class="fa fa-user"></span> Local</h3>
+    <div class="task-pool-container">
+      <h2>Tasks to Schedule</h2>
+      <ul id="task-pool" class="messages"></ul>
+    </div>
 
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p> -->
+    <div class="schedule-container">
+      <!-- <h2>Today's Schedule</h2> -->
+      <div id="daily-schedule"></div>
+    </div>
+  </div>
 
-                    <!-- <a href="/unlink/local" class="btn">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn">Connect Local</a>
-                <% } %> -->
-<!-- 
-            </div>
-        </div> -->
-        <div class="col-sm-6">
-          <!-- <h3>Messages</h3> -->
-          <ul class="messages">
-          <% for(let i=0; i<messages.length; i++) {%>
-            <li class="message">
-              <span><%= messages[i].name %></span>
-              <span><%= messages[i].msg %></span>
-              <span><%= messages[i].thumbUp %></span>
-              <span><i class="fa fa-heart-circle-plus" aria-hidden="true"></i></span>
-              <span><i class="fa fa-heart-circle-minus" aria-hidden="true"></i></span>
-              <span><i class="fa fa-heart-circle-xmark" aria-hidden="true"></i></span>
-            </li>
-          <% } %>
-          </ul>
+  <div class="side-section">
+    <div class="links">
+      <h2>Find some inspiration...</h2>
+      <a href="https://warfighterwellness.org/sleep-challenge/" target="_blank" class="block">Sleep Challenge</a>
+      <a href="https://www.mindful.sodexo.com/challenge/7-day-digital-detox-challenge/" target="_blank" class="block">Digital Detox Challenge</a>
+      <a href="https://www.coachweb.com/full-body-workouts/6188/take-the-30-day-burpee-challenge" target="_blank" class="block">Burpee Challenge</a>
+      <a href="https://www.nourishmovelove.com/30-day-abs-challenge/" target="_blank" class="block">Ab Challenge</a>
+      <a href="https://www.rochester.edu/human-resources/wp-content/uploads/2020/11/Gratitude_30day_checklist.pdf" target="_blank" class="block">Gratitude Challenge</a>
+    </div>
 
-          <!-- <h2>Add links here</h2> -->
-          <!-- <span class = "instructions">Add a challenge</span> -->
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <span class = "instructions">Add a challenge</span>
-            <input type="text" value="<%= user.local.email %>" name="name" class="challenge">
-            <input type="text" placeholder="ie burpee challenge" name="msg" class="challenge">
-            <button type="submit" class="challengeButton">Submit</button>
-            <span class = "instructions">Join the community</span>
-            <a href="https://www.myfitnesspal.com/" target="_blank" class="block">MyFitnessPal</a>
-            <a href="https://discord.com/" target="_blank" class="block">Discord</a>
-            <a href="https://www.strava.com/" target="_blank" class="block">Strava</a>
-          </form>
-        <!-- </div> -->
-        <% } %>
+    <div class="community">
+      <span class="instructions">Join the community</span>
+      <a href="https://www.myfitnesspal.com/" target="_blank" class="block">MyFitnessPal</a>
+      <a href="https://discord.com/" target="_blank" class="block">Discord</a>
+      <a href="https://www.strava.com/" target="_blank" class="block">Strava</a>
+    </div>
+    <iframe src="https://giphy.com/embed/baxsYVN22nzaw" width="280" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fitness-tomorrow-journey-baxsYVN22nzaw"></a></p> 
+            <a href="/logout" class="btn btn-sm"> Logout <i class="fa-solid fa-person-walking-arrow-right"></i></a> 
 
-        <div class="links">
-          <h3 id="current-time">Current time</h3>
-          <h2>Find some inspiration...</h2>
-        <a href="https://warfighterwellness.org/sleep-challenge/" target="_blank" class="block">Sleep Challenge</a>
-        <a href="https://www.mindful.sodexo.com/challenge/7-day-digital-detox-challenge/" target="_blank" class="block">Digital Detox Challenge</a>
-        <a href="https://www.coachweb.com/full-body-workouts/6188/take-the-30-day-burpee-challenge" target="_blank" class="block">Burpee Challenge</a>
-        <a href="https://www.nourishmovelove.com/30-day-abs-challenge/" target="_blank" class="block">Ab Challenge</a>
-        <a href="https://www.rochester.edu/human-resources/wp-content/uploads/2020/11/Gratitude_30day_checklist.pdf" target="_blank" class="block">Gratitude Challenge</a>
-        </div> 
-        </div>
-
-        <a href="/logout" class="btn btn-sm"> Logout </a> <i class="fa-solid fa-person-walking-arrow-right"></i>
-
+  </div>
 </div>
+
+    </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 <script src="main.js"></script>
 

@@ -9,12 +9,8 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('messages').find().sort({thumbUp: -1}).toArray((err, result) => {
-          if (err) return console.log(err)
-          res.render('profile.ejs', {
-            user : req.user,
-            messages: result,
-          })
+        res.render('profile.ejs', {
+            user : req.user
         })
     });
 
@@ -26,52 +22,79 @@ module.exports = function(app, passport, db) {
         res.redirect('/');
     });
 
-// message board routes ===============================================================
+// task routes ===============================================================
 
-    app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
-        if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/profile')
-      })
-    })
+    // get today's tasks
+    app.get('/tasks/today', isLoggedIn, (req, res) => {
+      const mongoose = require('mongoose');
+      const User = mongoose.model('User');
+      const today = new Date().toISOString().split('T')[0];
+      
+      User.findById(req.user._id, (err, user) => {
+        if (err) return res.status(500).json({ error: err });
+        const todayTasks = user.tasks.filter(t => t.date === today);
+        res.json(todayTasks);
+      });
+    });
 
-    app.put('/messages', (req, res) => {
-      db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        $set: {
-          thumbUp:req.body.thumbUp + 1
+    // add a task
+    app.post('/tasks', isLoggedIn, (req, res) => {
+      const mongoose = require('mongoose');
+      const User = mongoose.model('User');
+      const today = new Date().toISOString().split('T')[0];
+      
+      User.findById(req.user._id, (err, user) => {
+        if (err) return res.status(500).json({ error: err });
+        
+        user.tasks.push({
+          task: req.body.task,
+          timeSlot: null,
+          date: today
+        });
+        
+        user.save((err) => {
+          if (err) return res.status(500).json({ error: err });
+          res.json({ success: true });
+        });
+      });
+    });
+
+    // update task timeslot
+    app.put('/tasks/:id', isLoggedIn, (req, res) => {
+      const mongoose = require('mongoose');
+      const User = mongoose.model('User');
+      
+      User.findById(req.user._id, (err, user) => {
+        if (err) return res.status(500).json({ error: err });
+        
+        const task = user.tasks.id(req.params.id);
+        if (task) {
+          task.timeSlot = req.body.timeSlot;
+          user.save((err) => {
+            if (err) return res.status(500).json({ error: err });
+            res.json({ success: true });
+          });
+        } else {
+          res.status(404).json({ error: 'Task not found' });
         }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-    })
+      });
+    });
 
-    app.put('/messagesDown', (req, res) => {
-      db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        $set: {
-          thumbUp:req.body.thumbUp - 1
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-    })
-
-    app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
-        if (err) return res.send(500, err)
-        res.send('Message deleted!')
-      })
-    })
+    // delete task
+    app.delete('/tasks/:id', isLoggedIn, (req, res) => {
+      const mongoose = require('mongoose');
+      const User = mongoose.model('User');
+      
+      User.findById(req.user._id, (err, user) => {
+        if (err) return res.status(500).json({ error: err });
+        
+        user.tasks.id(req.params.id).remove();
+        user.save((err) => {
+          if (err) return res.status(500).json({ error: err });
+          res.json({ success: true });
+        });
+      });
+    });
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
