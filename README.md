@@ -53,7 +53,7 @@ Built to inspire motivation, consistency and keep track of workouts and tasks fo
 
 <p align="center">
   
-<img width="1665" height="816" alt="fitness-app-screenshot" src="https://github.com/user-attachments/assets/a0fe717e-887f-4d03-a2f4-fc3788c21693" />
+<img width="1792" height="880" alt="fit-planner" src="https://github.com/user-attachments/assets/24094fec-d5b3-48ce-9a1d-038baa687311" />
 
 </p>
 
